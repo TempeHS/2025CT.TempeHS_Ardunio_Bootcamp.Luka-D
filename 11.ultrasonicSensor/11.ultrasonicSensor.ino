@@ -25,11 +25,23 @@
 
 #include "Ultrasonic.h"
 
+#include <Servo.h>
+
+Servo myservo;
+Ultrasonic batman_sensor(5);
+unsigned static int servoPin = 7;
+
 void setup()
 {
-  
+  myservo.attach(servoPin);
+  Serial.begin(9600);
 }
-void loop()
+
+void loop() 
 {
-  
+Serial.println(batman_sensor.distanceRead());
+
+ int val = digitalRead(batman_sensor);
+ val = map(val, 0, 1023, 0, 180);
+  myservo.write(val);
 }
