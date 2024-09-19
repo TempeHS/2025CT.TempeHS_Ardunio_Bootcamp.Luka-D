@@ -38,10 +38,16 @@ void setup()
 }
 
 void loop() 
-{
-Serial.println(batman_sensor.distanceRead());
+{    
+    if (batman_sensor.distanceRead() >= 10)
+  {
+   Serial.println("close gate");
+   myservo.write(90);
+  }
 
- int val = digitalRead(batman_sensor);
- val = map(val, 0, 1023, 0, 180);
-  myservo.write(val);
+    if (batman_sensor.distanceRead() <= 10)
+  {
+   Serial.println("open gate");
+   myservo.write(10);
+  }
 }
